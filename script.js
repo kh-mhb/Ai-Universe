@@ -26,16 +26,19 @@ let displayItems = (allInfo) => {
     allInfo.forEach(infoView => {
         console.log(infoView);
         let infoViewDiv = document.createElement("div");
+
         infoViewDiv.classList.add('col');
+        let liEle = '';
+        infoView.features.map(e => liEle += `<li>${e}</li>`)
+        console.log(liEle)
         infoViewDiv.innerHTML =
             `  <div class="card h-100">
      <img src="${infoView.image}" class="card-img-top" alt="...">
      <div class="card-body">
          <h5 class="card-title">Features</h5>
          <ol>
-             <li>Natural language processing</li>
-             <li>Contextual understanding</li>
-             <li>Text generation</li>
+ ${liEle}
+
          </ol>
 
      </div>
