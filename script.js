@@ -39,10 +39,10 @@ let displayItems = (allInfo) => {
         <p id="current-time" ><i class="fa-regular fa-calendar me-1"></i>${finaltime} </p>
         </div>
      </div>
-     <div class="col-md-6 ">
-         <button class="btn btn-primary mt-3">
-         <i class="fa-solid fa-arrow-right"></i>
-     </button>
+     <div class="col-md-6 mt-3 ">
+     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+     <i class="fa-solid fa-arrow-right"></i>
+ </button>
      </div>
  </div>
       
