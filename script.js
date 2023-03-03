@@ -5,9 +5,7 @@ let loadItems = async (itemsDetails) => {
 
     let res = await fetch(url);
     let data = await res.json();
-    // console.log(data.data.tools[0].image);
-    // console.log(data);
-    // console.log(data.data.tools);
+
     displayItems(data.data.tools);
 
 }
@@ -16,6 +14,14 @@ let displayItems = (allInfo) => {
     // console.log(allInfo);
     let itemContainer = document.getElementById('item-container');
     // allInfo = allInfo.slice(0, 6);
+    let showAll = document.getElementById('show-all');
+    // if (allInfo.length > 6) {
+    //     allInfo = allInfo.slice(0, 6);
+    //     showAll.classList.remove('d-none');
+    // }
+    // else {
+    //     showAll.classList.add('d-none');
+    // }
 
     allInfo.forEach(infoView => {
         console.log(infoView);
@@ -40,7 +46,7 @@ let displayItems = (allInfo) => {
         <div class="d-inline">
     
         <p class="fw-bold fs-6 mt-2">${infoView.name} </p>
-        <p id="current-time" ><i class="fa-regular fa-calendar me-1"></i>${finaltime} </p>
+        <p id="current-time" ><i class="fa-regular fa-calendar me-1"></i>${infoView.published_in} </p>
         </div>
      </div>
      <div class="col-md-6 mt-2 ">
@@ -84,5 +90,24 @@ let toggleSpinner = isLoading => {
         spinnerSection.classList.add('d-none');
     }
 }
+// show all button
+document.getElementById('show-all').addEventListener('click', function () {
+
+    loadItems();
+    // let hideItem = document.getElementsById('for-hide');
+    // hideItem.classList.add('d-none');
+
+
+
+
+})
+// let showAll = () => {
+//     loadItems();
+//     let btnShowAll = document.getElementById('show-all');
+//     btnShowAll.classList.add = 'd-none';
+
+// }
+
+
 
 loadItems();
