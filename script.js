@@ -1,5 +1,8 @@
 let loadItems = async (itemsDetails) => {
+    toggleSpinner(true);
+
     let url = `https://openapi.programming-hero.com/api/ai/tools`;
+
     let res = await fetch(url);
     let data = await res.json();
     // console.log(data.data.tools[0].image);
@@ -13,6 +16,7 @@ let displayItems = (allInfo) => {
     // console.log(allInfo);
     let itemContainer = document.getElementById('item-container');
     // allInfo = allInfo.slice(0, 6);
+
     allInfo.forEach(infoView => {
         console.log(infoView);
         let infoViewDiv = document.createElement("div");
@@ -39,7 +43,7 @@ let displayItems = (allInfo) => {
         <p id="current-time" ><i class="fa-regular fa-calendar me-1"></i>${finaltime} </p>
         </div>
      </div>
-     <div class="col-md-6 mt-3 ">
+     <div class="col-md-6 mt-2 ">
      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
      <i class="fa-solid fa-arrow-right"></i>
  </button>
@@ -50,7 +54,10 @@ let displayItems = (allInfo) => {
  </div>
       `;
         itemContainer.appendChild(infoViewDiv);
+
     })
+    toggleSpinner(false);
+
 }
 
 let getCurrentTime = () => {
@@ -67,5 +74,15 @@ let getCurrentTime = () => {
 }
 let finaltime = getCurrentTime();
 console.log(finaltime)
+
+let toggleSpinner = isLoading => {
+    let spinnerSection = document.getElementById('loader');
+    if (isLoading) {
+        spinnerSection.classList.remove('d-none');
+    }
+    else {
+        spinnerSection.classList.add('d-none');
+    }
+}
 
 loadItems();
