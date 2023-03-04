@@ -24,13 +24,13 @@ let displayItems = (allInfo) => {
     // }
 
     allInfo.forEach(infoView => {
-        console.log(infoView);
+        // console.log(infoView.id);
         let infoViewDiv = document.createElement("div");
 
         infoViewDiv.classList.add('col');
         let liEle = '';
         infoView.features.map(e => liEle += `<li>${e}</li>`)
-        console.log(liEle)
+        // console.log(liEle)
         infoViewDiv.innerHTML =
             `  <div class="card h-100">
      <img src="${infoView.image}" class="card-img-top" alt="...">
@@ -53,7 +53,7 @@ let displayItems = (allInfo) => {
         </div>
      </div>
      <div class="col-md-6 mt-2 ">
-     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+     <button onclick="loadTheId('${infoView.id}')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
      <i class="fa-solid fa-arrow-right"></i>
  </button>
      </div>
@@ -72,17 +72,17 @@ let displayItems = (allInfo) => {
 let getCurrentTime = () => {
     const now = new Date();
     const year = now.getFullYear();
-    const month = now.getMonth() + 1; // Note that getMonth() returns a zero-based index
+    const month = now.getMonth() + 1;
     const day = now.getDate();
-    // console.log(` ${hours}:${minutes}:${seconds}`);
+
     let finaltime = ` ${day}:${month}:${year}`;
-    // let finalTimeString = finaltime.toString();
-    console.log(typeof finaltime);
+
+
     return finaltime;
 
 }
 let finaltime = getCurrentTime();
-console.log(finaltime)
+
 
 let toggleSpinner = isLoading => {
     let spinnerSection = document.getElementById('loader');
@@ -110,7 +110,60 @@ document.getElementById('show-all').addEventListener('click', function () {
 //     btnShowAll.classList.add = 'd-none';
 
 // }
+let loadTheId = async (id) => {
+    let url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
+    let res = await fetch(url);
+    let data = await res.json();
+    displayModalData(data.data);
+    // console.log(id);
 
+}
+let displayModalData = modalInfo => {
+    let modalShortInfo = document.getElementById('modal-short-info');
+    modalShortInfo.innerText = modalInfo.description;
+    // let modalImage = document.getElementById('modal-image');
+    // ModalImage.innerText = modalImage.logo;
+
+    let modalDiv11 = document.getElementById('modal-div-1-1');
+    modalDiv11.innerText = modalInfo.pricing[0].price ? modalInfo.pricing[0].price : "Free Of Cost";
+    let modalDiv12 = document.getElementById('modal-div-1-2');
+    modalDiv12.innerText = modalInfo.pricing[0].plan;
+    let modalDiv21 = document.getElementById('modal-div-2-1');
+    modalDiv21.innerText = modalInfo.pricing[1].price ? modalInfo.pricing[1].price : "Free Of Costs"
+    let modalDiv22 = document.getElementById('modal-div-2-2');
+    modalDiv22.innerText = modalInfo.pricing[1].plan;
+    let modalDiv31 = document.getElementById('modal-div-3-1');
+    modalDiv31.innerText = modalInfo.pricing[2].price ? modalInfo.pricing[2].price : "Free Of Costs"
+    let modalDiv32 = document.getElementById('modal-div-3-2');
+    modalDiv32.innerText = modalInfo.pricing[2].plan ? modalInfo.pricing[2].plan : " ";
+
+    let item1 = document.getElementById("item-1");
+    item1.innerText = modalInfo.integrations[0];
+    let item2 = document.getElementById("item-2");
+    item2.innerText = modalInfo.integrations[1];
+    let item3 = document.getElementById("item-3");
+    item3.innerText = modalInfo.integrations[2];
+
+    let feature1 = document.getElementById("feature-1");
+    feature1.innerText = modalInfo.features[1].feature_name;
+    let feature2 = document.getElementById("feature-2");
+    feature2.innerText = modalInfo.features[2].feature_name;
+    let feature3 = document.getElementById("feature-3");
+    feature3.innerText = modalInfo.features[3].feature_name;
+
+    let modalQuestion = document.getElementById('modal-q');
+    modalQuestion.innerText = modalInfo.input_output_examples[0].input;
+    let modalAns = document.getElementById("modal-ans");
+    modalAns.innerText = modalInfo.input_output_examples[0].output;
+    document.getElementById('modal-image').setAttribute('src', `${modalInfo.image_link[0]}`)
+    let modalTittle = document.getElementById('exampleModalLabel');
+    modalTittle.innerText = modalInfo.tool_name;
+
+
+
+
+    console.log(modalInfo.tool_name);
+}
 
 
 loadItems();
