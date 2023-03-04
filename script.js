@@ -125,7 +125,7 @@ let displayModalData = modalInfo => {
     // ModalImage.innerText = modalImage.logo;
 
     let modalDiv11 = document.getElementById('modal-div-1-1');
-    modalDiv11.innerText = modalInfo.pricing[0].price ? modalInfo.pricing[0].price : "Free Of Cost";
+    modalDiv11.innerText = modalInfo?.pricing[0]?.price ? modalInfo.pricing[0].price : "Free Of Cost";
     let modalDiv12 = document.getElementById('modal-div-1-2');
     modalDiv12.innerText = modalInfo.pricing[0].plan;
     let modalDiv21 = document.getElementById('modal-div-2-1');
@@ -140,9 +140,9 @@ let displayModalData = modalInfo => {
     let item1 = document.getElementById("item-1");
     item1.innerText = modalInfo.integrations[0];
     let item2 = document.getElementById("item-2");
-    item2.innerText = modalInfo.integrations[1];
+    item2.innerText = modalInfo.integrations[1] ? modalInfo.integrations[1] : "No More Data Found";
     let item3 = document.getElementById("item-3");
-    item3.innerText = modalInfo.integrations[2];
+    item3.innerText = modalInfo.integrations[2] ? modalInfo.integrations[2] : "No More Data Found";
 
     let feature1 = document.getElementById("feature-1");
     feature1.innerText = modalInfo.features[1].feature_name;
@@ -160,6 +160,16 @@ let displayModalData = modalInfo => {
     modalTittle.innerText = modalInfo.tool_name;
 
 
+    if (modalInfo?.accuracy?.score) {
+        let score = modalInfo?.accuracy?.score * 100
+        let modalPicDiv = document.getElementById('modal-pic-div')
+        modalPicDiv.innerHTML += ` <div id="accuracy"
+        class="position-absolute top-0 badge  bg-danger end-0  text-center  m-2">
+        <p>${score} % accuracy</p>
+    </div>`
+        // acuEle
+
+    }
 
 
     console.log(modalInfo.tool_name);
