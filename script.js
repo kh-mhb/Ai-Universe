@@ -57,7 +57,7 @@ let displayItems = (allInfo, ProShowAll) => {
         </div>
      </div>
      <div class="col-md-6 mt-2 ">
-     <button onclick="loadTheId('${infoView.id}')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+     <button onclick="loadTheId('${infoView.id}')" type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
      <i class="fa-solid fa-arrow-right"></i>
  </button>
      </div>
