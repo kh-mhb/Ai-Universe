@@ -1,4 +1,4 @@
-let loadItems = async (dataLimit) => {
+let loadItems = async (ProShowAll = false) => {
     toggleSpinner(true);
     // processSearch(6);
 
@@ -7,23 +7,25 @@ let loadItems = async (dataLimit) => {
     let res = await fetch(url);
     let data = await res.json();
 
-    displayItems(data.data.tools, dataLimit);
+    displayItems(data.data.tools, ProShowAll);
 
 }
 
-let displayItems = (allInfo, dataLimit) => {
+let displayItems = (allInfo, ProShowAll) => {
     // console.log(allInfo);
+
     let itemContainer = document.getElementById('item-container');
+    itemContainer.innerHTML = ''
     // allInfo = allInfo.slice(0, 6);
     let showAll = document.getElementById('show-all');
     // process search.......have to edit
-    // if (dataLimit && allInfo.length > 6) {
-    //     allInfo = allInfo.slice(0, 6);
-    //     showAll.classList.remove('d-none');
-    // }
-    // else {
-    //     showAll.classList.add('d-none');
-    // }
+    if (allInfo.length > 6 && ProShowAll === false) {
+        allInfo = allInfo.slice(0, 6);
+        // showAll.classList.remove('d-none');
+    }
+    else {
+        showAll.classList.add('d-none');
+    }
 
     allInfo.forEach(infoView => {
         // console.log(infoView.id);
@@ -96,16 +98,7 @@ let toggleSpinner = isLoading => {
     }
 }
 // show all button
-document.getElementById('show-all').addEventListener('click', function () {
 
-    loadItems();
-    // let hideItem = document.getElementsById('for-hide');
-    // hideItem.classList.add('d-none');
-
-
-
-
-})
 // let showAll = () => {
 //     loadItems();
 //     let btnShowAll = document.getElementById('show-all');
@@ -179,13 +172,13 @@ let displayModalData = modalInfo => {
 
 
 }
-let processSearch = (dataLimit) => {
-    loadItems(dataLimit);
+// let processSearch = (dataLimit) => {
+//     loadItems(dataLimit);
 
-}
+// }
 
 document.getElementById('btn-show-all').addEventListener('click', function () {
-    processSearch();
+    loadItems(true)
 }
 )
 
