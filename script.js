@@ -1,21 +1,23 @@
-let loadItems = async (itemsDetails) => {
+let loadItems = async (dataLimit) => {
     toggleSpinner(true);
+    // processSearch(6);
 
     let url = `https://openapi.programming-hero.com/api/ai/tools`;
 
     let res = await fetch(url);
     let data = await res.json();
 
-    displayItems(data.data.tools);
+    displayItems(data.data.tools, dataLimit);
 
 }
 
-let displayItems = (allInfo) => {
+let displayItems = (allInfo, dataLimit) => {
     // console.log(allInfo);
     let itemContainer = document.getElementById('item-container');
     // allInfo = allInfo.slice(0, 6);
     let showAll = document.getElementById('show-all');
-    // if (allInfo.length > 6) {
+    // process search.......have to edit
+    // if (dataLimit && allInfo.length > 6) {
     //     allInfo = allInfo.slice(0, 6);
     //     showAll.classList.remove('d-none');
     // }
@@ -126,6 +128,7 @@ let displayModalData = modalInfo => {
 
     let modalDiv11 = document.getElementById('modal-div-1-1');
     modalDiv11.innerText = modalInfo?.pricing[0]?.price ? modalInfo.pricing[0].price : "Free Of Cost";
+
     let modalDiv12 = document.getElementById('modal-div-1-2');
     modalDiv12.innerText = modalInfo.pricing[0].plan;
     let modalDiv21 = document.getElementById('modal-div-2-1');
@@ -135,6 +138,8 @@ let displayModalData = modalInfo => {
     let modalDiv31 = document.getElementById('modal-div-3-1');
     modalDiv31.innerText = modalInfo.pricing[2].price ? modalInfo.pricing[2].price : "Free Of Costs"
     let modalDiv32 = document.getElementById('modal-div-3-2');
+
+
     modalDiv32.innerText = modalInfo.pricing[2].plan ? modalInfo.pricing[2].plan : " ";
 
     let item1 = document.getElementById("item-1");
@@ -172,8 +177,17 @@ let displayModalData = modalInfo => {
     }
 
 
-    console.log(modalInfo.tool_name);
+
 }
+let processSearch = (dataLimit) => {
+    loadItems(dataLimit);
+
+}
+
+document.getElementById('btn-show-all').addEventListener('click', function () {
+    processSearch();
+}
+)
 
 
 loadItems();
